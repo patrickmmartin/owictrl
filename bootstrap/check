@@ -1,0 +1,5 @@
+echo checking libusb versions 
+dpkg --list | grep libusb
+echo checking for python-pip
+dpkg --list | grep python-pip
+

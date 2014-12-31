@@ -1,0 +1,3 @@
+sudo apt-get install python libusb-1.0
+sudo apt-get install python-pip
+sudo pip install --upgrade pyusb
