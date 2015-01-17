@@ -34,7 +34,15 @@ sample output for a properly configured system is (output will vary in version)
     seek:    	arm found
    
 
-You can then try 
+if there is nothing for libusb, pyusb then try
+
+     
+     sudo ./setup
+     
+
+You will need to OK any apt-get installation of libusb with Y
+
+If all is well, you can then try 
    
     sudo ./armdemo.py 
    
