@@ -16,7 +16,7 @@ RoboArm = usb.core.find(idVendor=0x1267, idProduct=0x0000)
 print('seek:   \tcomplete')
 # Check if the arm is detected and warn if not
 if RoboArm is None:
-   print('seek:\tno arm found')
+   print('seek:    \tno arm found')
    exit(1)
 else:
    print('seek:    \tarm found')

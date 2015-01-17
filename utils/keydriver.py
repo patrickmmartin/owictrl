@@ -26,7 +26,7 @@ edge = Edge()
 
 print('#### arm acquired')
 
-print('#### controls \n '+ 
+print('#### controls \n' + 
       'a/s \tbase \n' +
       'd/e \tshoulder \n' +
       'f/r \telbow \n' +
