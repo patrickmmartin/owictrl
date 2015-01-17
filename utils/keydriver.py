@@ -20,12 +20,24 @@ key_map_motors = {
 def to_motors(ch):
     return key_map_motors.get(ch, [0, 0, 0])
 
+print('#### manual robot arm control program...')
+
 edge = Edge()
 
-print('waiting for /...')
+print('#### arm acquired')
+
+print('#### controls \n '+ 
+      'a/s \tbase \n' +
+      'd/e \tshoulder \n' +
+      'f/r \telbow \n' +
+      'g/t \twrist \n' +
+      '[/] \tgrabber \n' +
+      '\' \tLED on ')
+
+print('#### waiting for q to quit ...\n>')
 
 c = ''
-while c != '/':
+while c != 'q':
     c = getch()
     motors = to_motors(c)
     if (motors != [0, 0, 0]):
