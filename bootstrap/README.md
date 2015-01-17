@@ -13,11 +13,10 @@ Currently the requirements are
 ## Checking
 run 
     
-    ./check
-    
+    ./check    
 
 sample output for a properly configured system is (output will vary in version)
-   
+
     ...owictrl/bootstrap$ ./check 
     checking libusb versions
     ii  libgusb2                              0.1.3-5                            amd64        GLib wrapper around libusb1
@@ -32,13 +31,10 @@ sample output for a properly configured system is (output will vary in version)
     seek:   	find arm
     seek:   	complete
     seek:    	arm found
-   
 
 if there is nothing for libusb, pyusb then try
 
-     
      sudo ./setup
-     
 
 You will need to OK any apt-get installation of libusb with Y
 
