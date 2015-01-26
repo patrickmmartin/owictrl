@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 from getch import getch
-from edgell import Edge
+from edgell import EdgeRaw
 
-key_map_motors = {        
+key_map_bits = {        
         'a'  : [0,  1,  0], # Rotate Base Anticlockwise
         's'  : [0,  2,  0], # Rotate Base Clockwise
         'd'  : [128,0,  0], # Shoulder Down 
@@ -17,12 +17,12 @@ key_map_motors = {
         '\'' : [0,  0,  1], # light on
         }
 
-def to_motors(ch):
-    return key_map_motors.get(ch, [0, 0, 0])
+def to_bits(ch):
+    return key_map_bits.get(ch, [0, 0, 0])
 
 print('#### manual robot arm control program...')
 
-edge = Edge()
+edge = EdgeRaw()
 
 print('#### arm acquired')
 
@@ -39,15 +39,14 @@ print('#### waiting for q to quit ...\n>')
 c = ''
 while c != 'q':
     c = getch()
-    motors = to_motors(c)
-    if (motors != [0, 0, 0]):
+    bits = to_bits(c)
+    if (bits != [0, 0, 0]):
 #        print (c, motors)
         # special case for light
-        if (motors == [0, 0,  1]):
-            edge.move_raw(0.5, motors)
+        if (bits == [0, 0,  1]):
+            edge.output(0.5, bits)
         else:
-            edge.move_raw(0.02, motors)
-
+            edge.output(0.02, bits)
 
 print('stopping arm')
 

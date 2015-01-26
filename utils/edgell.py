@@ -6,7 +6,7 @@ import sys
 import usb.core, usb.util, time
 
 """Low level driver for the OWI Edge"""
-class Edge:
+class EdgeRaw:
 
    def stop(self):
       self._arm.ctrl_transfer(0x40,6,0x100,0,[0, 0, 0],1000)
@@ -20,8 +20,8 @@ class Edge:
       # and check this
       self.stop()
       
-   """moves the set of motors for the duration"""
-   def move_raw(self, duration, motors):
+   """applies output bit set for the duration"""
+   def output(self, duration, motors):
 #      print('moving', motors, 'for ', duration)
       # Start the movement
       self._arm.ctrl_transfer(0x40,6,0x100,0,motors,1000)
