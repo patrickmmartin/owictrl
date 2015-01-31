@@ -3,7 +3,7 @@
 # from edgell import EdgeRaw
 
 # the fake device
-# from edgemock import EdgeMock as EdgeRaw
+from edgemock import EdgeMock as EdgeRaw
 
 """High level driver for the OWI Edge"""
 class Edge:
@@ -19,8 +19,4 @@ class Edge:
    def __init__(self):
       # initialise essentials
       self._arm = EdgeRaw()
-
-
-
-    
 
