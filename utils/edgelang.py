@@ -6,15 +6,6 @@
 
 """  motors """
 
-motor_map_bits = {        
-        'M5'  : { 'byte': 1, 'bits': [1,    2]}, # Base
-        'M4'  : { 'byte': 0, 'bits': [64, 128]}, # Shoulder Down 
-        'M3'  : { 'byte': 0, 'bits': [16,  32]}, # Elbow
-        'M2'  : { 'byte': 0, 'bits': [4,    8]}, # Wrist 
-        'M1'  : { 'byte': 0, 'bits': [1,    2]}, # Grab
-        'L'   : { 'byte': 2, 'bits': [1]      }
-        }
-
 
 def parse_motor(command, res):
     # Mn[+/-]
@@ -62,7 +53,12 @@ def to_ll(str):
         ret = {}
         for command in commands:
             command = command.strip()
+            if (len(command)) == 0:
+                raise Exception("command cannot be blank")
             parse_func = command_map.get(command[0])
+            if (parse_func == None):
+                raise Exception("command unknown %s" % command[0])
+                            
             parse_func(command, ret)
             # could enforce a duration here
         result.append(ret)    
