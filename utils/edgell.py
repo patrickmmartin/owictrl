@@ -16,9 +16,9 @@ motor_map_bits = {
         '3'  : { 'byte': 0, 'bits': [16,  32]}, # Elbow
         '2'  : { 'byte': 0, 'bits': [4,    8]}, # Wrist 
         '1'  : { 'byte': 0, 'bits': [1,    2]}, # Grab
-        }
-light_bits = 
-        { 'byte': 2, 'bits': [1] }
+        };
+
+light_bits =  { 'byte': 2, 'bits': [1] };
 
 
 
