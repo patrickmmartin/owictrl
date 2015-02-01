@@ -49,13 +49,14 @@ class EdgeRaw:
       self.stop()
 
    """applies output motor set for the duration"""
-   def output(self, duration, motors):
+   def set_motors(self, duration, motors):
 #      print('moving', motors, 'for ', duration)
       # Start the movement
       # {1: {'dir': 1}, 2: {'dir': -1}, 'D': 1.0}
+      # TODO(PMM) map the motor bytes to the output bytes
       motor_bytes = [0, 0, 0] 
       self._arm.ctrl_transfer(0x40,6,0x100,0,motor_bytes,1000)
-      time.sleep(duration)
+      time.sleep(motors['D'])
       # Stop the movement after waiting specified duration
       self.stop()
 
