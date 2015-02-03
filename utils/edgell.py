@@ -22,9 +22,11 @@ light_bits =  { 'byte': 2, 'bits': [1] };
 
 def to_bytes(motors):
    motor_bytes = [0, 0, 0]
-   for motor in motors.M:
-      bits = motors.M[motor]
-      print bits
+   M = motors['M']
+   for motor in M:
+      bits = M[motor]
+   if (motors.get('L', False)):
+      motor_bytes[2] = 1
    return motor_bytes
 
 """Low level driver for the OWI Edge"""
