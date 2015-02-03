@@ -11,16 +11,21 @@ import usb.core, usb.util, time
 # motors
 
 motor_map_bits = {        
-        '5'  : { 'byte': 1, 'bits': [1,    2]}, # Base
-        '4'  : { 'byte': 0, 'bits': [64, 128]}, # Shoulder Down 
-        '3'  : { 'byte': 0, 'bits': [16,  32]}, # Elbow
-        '2'  : { 'byte': 0, 'bits': [4,    8]}, # Wrist 
-        '1'  : { 'byte': 0, 'bits': [1,    2]}, # Grab
+        5  : { 'byte': 1, 'bits': [1,    2]}, # Base
+        4  : { 'byte': 0, 'bits': [64, 128]}, # Shoulder Down 
+        3  : { 'byte': 0, 'bits': [16,  32]}, # Elbow
+        2  : { 'byte': 0, 'bits': [4,    8]}, # Wrist 
+        1  : { 'byte': 0, 'bits': [1,    2]}, # Grab
         };
 
 light_bits =  { 'byte': 2, 'bits': [1] };
 
-
+def to_bytes(motors):
+   motor_bytes = [0, 0, 0]
+   for motor in motors.M:
+      bits = motors.M[motor]
+      print bits
+   return motor_bytes
 
 """Low level driver for the OWI Edge"""
 class EdgeRaw:
@@ -49,13 +54,13 @@ class EdgeRaw:
       self.stop()
 
    """applies output motor set for the duration"""
-   def set_motors(self, duration, motors):
+   def drive(self, motors):
 #      print('moving', motors, 'for ', duration)
       # Start the movement
       # {1: {'dir': 1}, 2: {'dir': -1}, 'D': 1.0}
       # TODO(PMM) map the motor bytes to the output bytes
-      motor_bytes = [0, 0, 0] 
-      self._arm.ctrl_transfer(0x40,6,0x100,0,motor_bytes,1000)
+      motor_bytes = to_bytes(motors)
+      #self._arm.ctrl_transfer(0x40,6,0x100,0,motor_bytes,1000)
       time.sleep(motors['D'])
       # Stop the movement after waiting specified duration
       self.stop()

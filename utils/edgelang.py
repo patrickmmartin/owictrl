@@ -1,11 +1,8 @@
 #! /usr/bin/python
 
-
 """ trivial textual representation of arm moves"""
 
-
 """  motors """
-
 
 def parse_motor(command, res):
     # Mn[+/-]
@@ -17,7 +14,7 @@ def parse_motor(command, res):
         raise Exception('command not correct length %s (length %d)' % ("[2, 3]", clen))
     m = int(command[1])
     d = 1 if ((clen < 3) or (command[2] == '+')) else -1
-    res[m] = { 'dir' : d }
+    res['M'][m] = { 'dir' : d }
     
 def parse_duration(command, res):
     # Dn.nn
@@ -50,7 +47,7 @@ def to_ll(str):
     instructions = str.split(";")
     for instruction in instructions:
         commands = instruction.split(",")
-        ret = {}
+        ret = { 'M' : {}  }
         for command in commands:
             command = command.strip()
             if (len(command)) == 0:
@@ -60,7 +57,7 @@ def to_ll(str):
                 raise Exception("command unknown %s" % command[0])
                             
             parse_func(command, ret)
-            # could enforce a duration here
+            # could enforce that a duration is specified here here
         result.append(ret)    
         
     return result
