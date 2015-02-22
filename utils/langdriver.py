@@ -30,6 +30,7 @@ print('#### enter command strings to control robot controls \n' +
 print('example string for grabbing an item: \n' +
 "M3,M4-,D4.5;" +
 "M1,M3,M4-,D0.5;" +
+"M5,D5;" +
 "M1-,M3-,M4,D0.5;" +
 "M3-,M4,D4.5")
 

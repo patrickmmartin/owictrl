@@ -71,8 +71,10 @@ class EdgeHLAddDoubleMovesTestCase(EdgeHLBaseTestCase):
 """ test for setting moves """
 class EdgeHLAddTripleMovesTestCase(EdgeHLBaseTestCase):
     def runTest(self):
+        self._edge.addMoves("M5,D5")
         self._edge.addMoves("M3,M4-,D4.5")
         self._edge.addMoves("M1,M3,M4-,D0.5")
+        self._edge.addMoves("M5-,D5")
         self._edge.addMoves("M1-,M3-,M4,D0.5")
         self._edge.addMoves("M3-,M4,D4.5")
         self._edge.move()
