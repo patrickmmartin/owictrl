@@ -1,4 +1,7 @@
 #!/usr/bin/python
+
+""" simpler USB devices lister """
+
 import sys
 import usb.core
 # find all devices

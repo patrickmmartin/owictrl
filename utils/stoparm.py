@@ -1,5 +1,6 @@
 #!/usr/bin/python
-# OWI Edge Emergency Stop
+
+""" OWI Edge Emergency Stop """
 
 import sys
 

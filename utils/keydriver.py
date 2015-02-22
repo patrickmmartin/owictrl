@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+""" runnable keyboard arm driver """
+
 from getch import getch
 from edgell import EdgeRaw
 

@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-""" test cases for the mini language """
+""" test cases for the mini language output """
 
 import os
 import unittest

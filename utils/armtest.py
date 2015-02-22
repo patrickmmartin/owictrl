@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-""" test cases for the high level arm """
+""" runnable test cases for the high level arm language """
 
 import os
 import unittest

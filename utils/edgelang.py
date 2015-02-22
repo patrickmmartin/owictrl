@@ -2,8 +2,6 @@
 
 """ trivial textual representation of arm moves"""
 
-"""  motors """
-
 def parse_motor(command, res):
     # Mn[+/-]
     # get motor number

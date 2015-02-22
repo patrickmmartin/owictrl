@@ -1,5 +1,6 @@
 #!/usr/bin/python
-# ROBOT ARM CONTROL PROGRAM
+
+""" runnable arm demo #2 """
 
 import sys
 

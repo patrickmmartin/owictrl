@@ -1,10 +1,10 @@
 #!/usr/bin/python
-# ROBOT ARM CONTROL PROGRAM
+
+""" runnable arm demo #1 """
 
 import sys
 
 print('startup')
-
 
 # import the USB and Time libraries into Python
 import usb.core, usb.util, time

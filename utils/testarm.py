@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+""" runnable arm quick test """
+
 import sys
 
 print('startup')

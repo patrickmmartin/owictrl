@@ -1,9 +1,8 @@
 #!/usr/bin/python
 
-import sys
+""" mock class for the edge arm """
 
-# import the Time libraries
-import time
+import sys, time
 
 motor_map_bits = {        
         'a'  : [0,  1,  0], # Rotate Base Anticlockwise
@@ -21,25 +20,25 @@ motor_map_bits = {
 
 def to_unit_vecs(bits):
    result = [0, 0, 0]
-   if (bits[0] & 1)
-      result[0] = 1;
-   if (bits[0] & 2)
-      result[0] = -1;
+   if (bits[0] & 1):
+      result[0] = 1
+   if (bits[0] & 2):
+      result[0] = -1
 
-   if (bits[0] & 128)
-      result[0] = 1;
-   if (bits[0] & 64)
-      result[0] = -1;
+   if (bits[0] & 128):
+      result[0] = 1
+   if (bits[0] & 64):
+      result[0] = -1
 
-   if (bits[0] & 32)
-      result[0] = 1;
-   if (bits[0] & 16)
-      result[0] = -1;
+   if (bits[0] & 32):
+      result[0] = 1
+   if (bits[0] & 16):
+      result[0] = -1
 
-   if (bits[0] & 8)
-      result[0] = 1;
-   if (bits[0] & 4)
-      result[0] = -1;
+   if (bits[0] & 8):
+      result[0] = 1
+   if (bits[0] & 4):
+      result[0] = -1
 
 # it's around 12 degrees per second
 AngularVelocity = 12
@@ -62,7 +61,7 @@ class EdgeMock:
       # time.sleep(duration)
       # update the positions
       unit_vecs = to_unit_vecs(motors)
-      for i in [0..2]:
+      for i in range(0,2):
          self.angles[i] = unit_vecs[i] * duration
       self.stop()
 
