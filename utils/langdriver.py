@@ -33,17 +33,17 @@ print('example string for grabbing an item: \n' +
 "M1-,M3-,M4,D0.5;" +
 "M3-,M4,D4.5")
 
-str = raw_input("enter string")
-while not str == '':
+str_input = raw_input("enter string\n")
+while not str_input == '':
     try:
-        instructions = edgelang.to_ll(move) 
-        edge.addMoves(str)
+        instructions = edgelang.to_ll(str_input) 
+        edge.addMoves(str_input)
         edge.move()
         edge.stop()
-    except:
-        print "error in string"
+    except Exception as e:
+        print "error in string: " + str(e)
         
-    str = raw_input("enter string")
+    str_input = raw_input("enter string\n")
 
 print('#### stopping arm')
 
