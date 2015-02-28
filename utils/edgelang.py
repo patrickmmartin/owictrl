@@ -2,6 +2,7 @@
 
 """ trivial textual representation of arm moves"""
 
+
 def parse_motor(command, res):
     # Mn[+/-]
     # get motor number
@@ -9,11 +10,15 @@ def parse_motor(command, res):
     clen = len(command)
     lengths = set([2, 3])
     if not (set([clen]) & lengths):
-        raise Exception('command not correct length {0} (length {1})'.format("[2, 3]", clen))
+        raise Exception(
+            'command not correct length {0} (length {1})'.format(
+                "[2, 3]",
+                clen))
     m = int(command[1])
     d = 1 if ((clen < 3) or (command[2] == '+')) else -1
-    res['M'][m] = { 'dir' : d }
-    
+    res['M'][m] = {'dir': d}
+
+
 def parse_duration(command, res):
     # Dn.nn
     # get duration
@@ -21,17 +26,18 @@ def parse_duration(command, res):
     if (d < 0):
         raise Exception('duration must be non-negative')
     res['D'] = d
-    
+
+
 def parse_light(command, res):
     # L[1/0]
     # get on/off
-    res['L'] = command[1:] == "1"    
+    res['L'] = command[1:] == "1"
 
-command_map = {        
-        'M'  : parse_motor,
-        'D'  : parse_duration,
-        'L'  : parse_light 
-        }
+command_map = {
+    'M': parse_motor,
+    'D': parse_duration,
+    'L': parse_light
+}
 
 """ semicolon delimited set of comma delimited set of params with a char code and 1-2 params """
 """ examples of input """
@@ -45,24 +51,23 @@ def to_ll(str):
     instructions = str.split(";")
     for instruction in instructions:
         commands = instruction.split(",")
-        ret = { 'M' : {}  }
+        ret = {'M': {}}
         for command in commands:
             command = command.strip()
             if (len(command)) == 0:
                 raise Exception("command cannot be blank")
             parse_func = command_map.get(command[0])
-            if (parse_func == None):
+            if (parse_func is None):
                 raise Exception("command unknown {0}".format(command[0]))
-                            
+
             parse_func(command, ret)
             # could enforce that a duration is specified here here
-        result.append(ret)    
-        
+        result.append(ret)
+
     return result
 
     # split on commas
 
+
 def to_hl(str):
     raise Error("not implemented")
-
-

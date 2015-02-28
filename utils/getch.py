@@ -1,9 +1,12 @@
 # from recipe in http://code.activestate.com/recipes/134892-getch-like-unbuffered-character-reading-from-stdin/
 # there is a lot more in there, but I need to get that Mac to check it
 
+
 class _Getch:
+
     """Gets a single character from standard input.  Does not echo to the
 screen."""
+
     def __init__(self):
         try:
             self.impl = _GetchWindows()
@@ -14,11 +17,15 @@ screen."""
 
 
 class _GetchUnix:
+
     def __init__(self):
-        import tty, sys
+        import tty
+        import sys
 
     def __call__(self):
-        import sys, tty, termios
+        import sys
+        import tty
+        import termios
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
@@ -30,6 +37,7 @@ class _GetchUnix:
 
 
 class _GetchWindows:
+
     def __init__(self):
         import msvcrt
 
