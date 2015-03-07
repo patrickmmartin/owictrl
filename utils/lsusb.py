@@ -2,6 +2,7 @@
 
 """ simpler USB devices lister """
 
+
 def lsusb():
     import sys
     import usb.core

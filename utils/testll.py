@@ -6,75 +6,80 @@ import unittest
 import edgelang
 import edgell
 
-""" base class with setUp """
-
 
 class EdgeLangBaseTestCase(unittest.TestCase):
+
+    """ base class with setUp """
     _blank_move = [0, 0, 0]
     _LED_only = [0, 0, 1]
 
     def setUp(self):
         pass
 
-""" test class with most basic parse test """
-
 
 class EdgeLangLLTestCase(EdgeLangBaseTestCase):
 
+    """ test class with most basic parse test """
+
     def runTest(self):
+        """ implement runTest"""
         instructions = edgelang.to_ll("D1.0")
         edge_bytes = edgell.to_bytes(instructions[0])
         self.assertEqual(edge_bytes, self._blank_move)
 
-""" test for format of returned dict """
-
 
 class EdgeLangLLTestResultCase(EdgeLangBaseTestCase):
 
+    """ test for format of returned dict """
+
     def runTest(self):
+        """ implement runTest"""
         instructions = edgelang.to_ll("M1+,M2-,D1.0")
         edge_bytes = edgell.to_bytes(instructions[0])
         self.assertEqual(edge_bytes, self._blank_move)
 
-""" test for setting LED """
-
 
 class EdgeLangLLLEDOffTestCase(EdgeLangBaseTestCase):
 
+    """ test for setting LED """
+
     def runTest(self):
+        """ implement runTest"""
         instructions = edgelang.to_ll(" L0 , D1 ")
         edge_bytes = edgell.to_bytes(instructions[0])
         self.assertEqual(edge_bytes, self._blank_move)
 
-""" test for setting LED """
-
 
 class EdgeLangLLLEDOnTestCase(EdgeLangBaseTestCase):
 
+    """ test for setting LED """
+
     def runTest(self):
+        """ implement runTest"""
         instructions = edgelang.to_ll(" L1 , D1 ")
         edge_bytes = edgell.to_bytes(instructions[0])
         self.assertEqual(edge_bytes, self._LED_only)
 
-""" reject negative durations """
-
 
 class EdgeLangInvalidTestCase(EdgeLangBaseTestCase):
 
+    """ reject negative durations """
+
     @unittest.expectedFailure
     def runTest(self):
+        """ implement runTest"""
         instructions = edgelang.to_ll("A1,B1,C1")
-        edge_bytes = edgell.to_bytes(instructions[0])
-
-""" reject invalid directives """
+        edgell.to_bytes(instructions[0])
 
 
 class EdgeLangDurationTestCase(EdgeLangBaseTestCase):
 
+    """ reject invalid directives """
     @unittest.expectedFailure
     def runTest(self):
+        """ implement runTest"""
         instructions = edgelang.to_ll("M1,D-1")
-        edge_bytes = edgell.to_bytes(instructions[0])
+        edgell.to_bytes(instructions[0])
 
 if __name__ == '__main__':
     unittest.main()

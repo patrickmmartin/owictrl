@@ -2,9 +2,9 @@
 
 """ mock class for the edge arm """
 
-from logutil import logger
+from logutil import LOGGER_DEFAULT as logger
 
-motor_map_bits = {
+MOTOR_MAP_BITS = {
     'a': [0, 1, 0],  # Rotate Base Anticlockwise
     's': [0, 2, 0],  # Rotate Base Clockwise
     'd': [128, 0, 0],  # Shoulder Down
@@ -20,50 +20,52 @@ motor_map_bits = {
 
 
 def to_unit_vecs(bits):
+    """ converts to unit vectors """
     result = [0, 0, 0]
-    if (bits[0] & 1):
+    if bits[0] & 1:
         result[0] = 1
-    if (bits[0] & 2):
+    if bits[0] & 2:
         result[0] = -1
 
-    if (bits[0] & 128):
+    if bits[0] & 128:
         result[0] = 1
-    if (bits[0] & 64):
+    if bits[0] & 64:
         result[0] = -1
 
-    if (bits[0] & 32):
+    if bits[0] & 32:
         result[0] = 1
-    if (bits[0] & 16):
+    if bits[0] & 16:
         result[0] = -1
 
-    if (bits[0] & 8):
+    if bits[0] & 8:
         result[0] = 1
-    if (bits[0] & 4):
+    if bits[0] & 4:
         result[0] = -1
+
+    return result
 
 # it's around 12 degrees per second
-AngularVelocity = 12
-
-"""Mock low level driver for the OWI Edge"""
+ANGULAR_VELOCITY = 12
 
 
-class EdgeMock:
+class EdgeMock(object):
 
-    """ sets up class; initialises arm instance  """
+    """Mock low level driver for the OWI Edge"""
 
     def __init__(self):
+        """ sets up class; initialises arm instance  """
         self.angles = (0, 0, 0)  # degrees
+        self.speeds = (0, 0, 0)  # degrees / s
         logger.info('__init__')
 
-    """ stops the arm """
-
     def stop(self):
+        """ stops the arm """
         logger.info('stop')
-
-    """applies output bit set for the duration"""
+        self.speeds = (0, 0, 0)
 
     def output(self, duration, motors):
-        logger.info('moving', motors, 'for ', duration)
+        """applies output bit set for the duration"""
+        logger.info('moving % for %s', motors, duration)
         # time.sleep(duration)
         # update the positions
         unit_vecs = to_unit_vecs(motors)

@@ -2,9 +2,10 @@
 
 """ OWI Edge Emergency Stop """
 
-from logutil import logger
+from logutil import LOGGER_DEFAULT as logger
 
 logger.info('startup')
+
 
 def stop():
 

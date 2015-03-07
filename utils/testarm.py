@@ -4,6 +4,7 @@
 
 print('startup')
 
+
 def armtest():
     # import the USB and Time libraries into Python
     import usb.core
@@ -21,7 +22,6 @@ def armtest():
         raise ValueError("Arm not found")
 
     # Define a procedure to execute each movement
-
 
     def MoveArm(Duration, ArmCmd):
         # Start the movement

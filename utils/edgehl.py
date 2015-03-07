@@ -1,8 +1,7 @@
-# the real device
+""" high level device for the Edge  """
 
-from logutil import logger
+from logutil import LOGGER_DEFAULT as logger
 
-""" high level """
 
 # the language
 import edgelang
@@ -13,76 +12,56 @@ from edgell import EdgeRaw
 # the fake device
 #from edgemock import EdgeMock as EdgeRaw
 
-"""High level driver for the OWI Edge"""
 
+class Edge(object):
 
-class Edge:
-
-    # TODO needs to have a concept of the current status
-    # TODO needs to have a concept of current move plan
-    # TODO needs to handle light status appropriately
-    # TODO needs to deliver the requested angular change
-    # should handle 100% motor moves
-    # could handle partial power moves through time slicing
-
-    """ sets up class; initialises   """
+    """High level driver for the OWI Edge"""
 
     def __init__(self):
-        # initialise essentials
+        """ sets up class; initialises """
         self._moves = list()
-        self._moveIndex = 0
+        self._move_index = 0
         self._paused = False
         self._arm = EdgeRaw()
 
-    """ add the moves """
-
-    def addMoves(self, moves):
-        # store moves
+    def add_moves(self, moves):
+        """ add the moves """
         self._moves.append(moves)
 
-    """ clear the moves """
-
-    def clearMoves(self):
-        # clear the moves list
+    def clear_moves(self):
+        """ clear the moves """
         self._moves = list()
 
-    """  stop """
-
     def stop(self):
-        # stop the arm
+        """  stop """
         self._arm.stop()
 
-    """ start from the currently defined actions """
-
     def start(self):
-        self._moveIndex = 0
+        """ start from the currently defined actions """
+        self._move_index = 0
         self.resume()
 
-    """ the main loop for moving the arm """
-
     def move(self):
-        # move while actions remain and not paused
+        """ the main loop for moving the arm """
         logger.info('move starting')
-        while (not self._paused and (self._moveIndex < len(self._moves))):
-            move = self._moves[self._moveIndex]
+        while not self._paused and (self._move_index < len(self._moves)):
+            move = self._moves[self._move_index]
             instructions = edgelang.to_ll(move)
-            logger.info('move {0} {1}'.format(move, instructions))
+            logger.info('move %s %s', move, instructions)
             for instruction in instructions:
-                logger.info('move {0}'.format(instruction))
+                logger.info('move %s', instruction)
                 self._arm.drive(instruction)
-            self._moveIndex += 1
+            self._move_index += 1
             logger.info("finished")
         self.stop()
 
-    """ pause the moves  """
-
     def pause(self):
+        """ pause the moves  """
         # flag paused
         self._paused = True
 
-    """ resume the motion """
-
     def resume(self):
+        """ resume the motion """
         self._paused = False
-        if (len(self._moves) > 0):
+        if len(self._moves) > 0:
             self.move()

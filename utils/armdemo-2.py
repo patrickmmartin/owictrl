@@ -2,9 +2,10 @@
 
 """ runnable arm demo #1 """
 
-def armdemo2():
 
-    from logutil import logger
+def armdemo2():
+    """ runner for the arm demo 2 """
+    from logutil import LOGGER_DEFAULT as logger
 
     logger.info('startup')
 
@@ -15,34 +16,34 @@ def armdemo2():
 
     logger.info('seeking arm')
 
-    # Allocate the name 'RoboArm' to the USB device
-    RoboArm = usb.core.find(idVendor=0x1267, idProduct=0x0000)
+    # Allocate the name 'arm' to the USB device
+    arm = usb.core.find(idVendor=0x1267, idProduct=0x0000)
 
     logger.info('find complete')
 
     # Check if the arm is detected and warn if not
-    if RoboArm is None:
+    if arm is None:
         raise ValueError("Arm not found")
 
     # Define a procedure to execute each movement
 
-
-    def MoveArm(Duration, ArmCmd):
+    def move_arm(duration, cmd):
+        """ the actual move function """
         # Start the movement
-        RoboArm.ctrl_transfer(0x40, 6, 0x100, 0, ArmCmd, 1000)
+        arm.ctrl_transfer(0x40, 6, 0x100, 0, cmd, 1000)
         # Stop the movement after waiting specified duration
-        time.sleep(Duration)
-        ArmCmd = [0, 0, 0]
-        RoboArm.ctrl_transfer(0x40, 6, 0x100, 0, ArmCmd, 1000)
+        time.sleep(duration)
+        cmd = [0, 0, 0]
+        arm.ctrl_transfer(0x40, 6, 0x100, 0, cmd, 1000)
 
     logger.info('complete: reversing')
 
-    MoveArm(0.5, [0, 2, 0])  # Rotate Base Clockwise
-    MoveArm(0.25, [128, 0, 0])  # Shoulder Down
-    MoveArm(0.25, [32, 0, 0])  # Elbow Down
+    move_arm(0.5, [0, 2, 0])  # Rotate Base Clockwise
+    move_arm(0.25, [128, 0, 0])  # Shoulder Down
+    move_arm(0.25, [32, 0, 0])  # Elbow Down
 
-    MoveArm(0.5, [128 + 16, 0, 0])  # "Forward"
+    move_arm(0.5, [128 + 16, 0, 0])  # "Forward"
 
 
-if (__name__ == '__main__'):
+if __name__ == '__main__':
     armdemo2()

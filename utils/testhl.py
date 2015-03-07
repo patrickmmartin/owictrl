@@ -5,96 +5,103 @@
 import unittest
 import edgehl              # Edge
 
-""" base class with setUp """
-
 
 class EdgeHLBaseTestCase(unittest.TestCase):
 
-    def setUp(self):
-        self._edge = edgehl.Edge()
+    """ base class with setUp """
 
-""" test for empty list """
+    def setUp(self):
+        """ shared setup """
+        self._edge = edgehl.Edge()
 
 
 class EdgeHLDefaultsTestCase(EdgeHLBaseTestCase):
 
+    """ test for empty list """
+
     def runTest(self):
+        """ run test case """
         self._edge.move()
         self._edge.stop()
         self._edge.pause()
         self._edge.resume()
-
-""" test for setting empty list """
 
 
 class EdgeHLEmptyTestCase(EdgeHLBaseTestCase):
 
+    """ test for setting empty list """
+
     def runTest(self):
+        """ run test case """
         self._edge.move()
         self._edge.stop()
         self._edge.pause()
         self._edge.resume()
-
-""" test for setting moves """
 
 
 class EdgeHLAddLEDTestCase(EdgeHLBaseTestCase):
 
+    """ test for setting moves """
+
     def runTest(self):
-        self._edge.addMoves("L1,D0.1")
+        """ run test case """
+        self._edge.add_moves("L1,D0.1")
         self._edge.move()
         self._edge.stop()
         self._edge.pause()
         self._edge.resume()
-
-""" test for setting moves """
 
 
 class EdgeHLAddSingleMovesTestCase(EdgeHLBaseTestCase):
 
+    """ test for setting moves """
+
     def runTest(self):
-        self._edge.addMoves("M1,D0.1")
-        self._edge.addMoves("M1-,D0.1")
-        self._edge.addMoves("M2,D0.1")
-        self._edge.addMoves("M2-,D0.1")
-        self._edge.addMoves("M3,D0.1")
-        self._edge.addMoves("M3-,D0.1")
-        self._edge.addMoves("M4,D0.1")
-        self._edge.addMoves("M4-,D0.1")
-        self._edge.addMoves("M5,D0.1")
-        self._edge.addMoves("M5-,D0.1")
+        """ run test case """
+        self._edge.add_moves("M1,D0.1")
+        self._edge.add_moves("M1-,D0.1")
+        self._edge.add_moves("M2,D0.1")
+        self._edge.add_moves("M2-,D0.1")
+        self._edge.add_moves("M3,D0.1")
+        self._edge.add_moves("M3-,D0.1")
+        self._edge.add_moves("M4,D0.1")
+        self._edge.add_moves("M4-,D0.1")
+        self._edge.add_moves("M5,D0.1")
+        self._edge.add_moves("M5-,D0.1")
         self._edge.move()
         self._edge.stop()
         self._edge.pause()
         self._edge.resume()
-
-""" test for setting moves """
 
 
 class EdgeHLAddDoubleMovesTestCase(EdgeHLBaseTestCase):
 
+    """ test for setting moves """
+
     def runTest(self):
-        self._edge.addMoves("M3,M4-,D0.5")
-        self._edge.addMoves("M3-,M4,D0.5")
-        self._edge.addMoves("M2,M4-,D0.5")
-        self._edge.addMoves("M2-,M4,D0.5")
+        """ run test case """
+        self._edge.add_moves("M3,M4-,D0.5")
+        self._edge.add_moves("M3-,M4,D0.5")
+        self._edge.add_moves("M2,M4-,D0.5")
+        self._edge.add_moves("M2-,M4,D0.5")
         self._edge.move()
         self._edge.stop()
         self._edge.pause()
         self._edge.resume()
 
-""" test for setting moves """
-
 
 class EdgeHLAddTripleMovesTestCase(EdgeHLBaseTestCase):
 
+    """ test for setting moves """
+
     def runTest(self):
-        self._edge.addMoves("M5,D5")
-        self._edge.addMoves("M3,M4-,D4.5")
-        self._edge.addMoves("M1,M3,M4-,D0.5")
-        self._edge.addMoves("M5-,D5")
-        self._edge.addMoves("M1-,M3-,M4,D0.5")
-        self._edge.addMoves("M3-,M4,D4.5")
+        """ run test case """
+        self._edge.add_moves("M5,D5")
+        self._edge.add_moves("M3,M4-,D4.5")
+        self._edge.add_moves("M1,M3,M4-,D0.5")
+        self._edge.add_moves("M5-,D5")
+        self._edge.add_moves("M1-,M3-,M4,D0.5")
+        self._edge.add_moves("M3-,M4,D4.5")
         self._edge.move()
         self._edge.stop()
         self._edge.pause()

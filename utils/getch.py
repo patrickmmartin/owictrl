@@ -2,7 +2,7 @@
 # there is a lot more in there, but I need to get that Mac to check it
 
 
-class _Getch:
+class _Getch(object):
 
     """Gets a single character from standard input.  Does not echo to the
 screen."""
@@ -16,7 +16,7 @@ screen."""
     def __call__(self): return self.impl()
 
 
-class _GetchUnix:
+class _GetchUnix(object):
 
     def __init__(self):
         import tty
@@ -36,7 +36,7 @@ class _GetchUnix:
         return ch
 
 
-class _GetchWindows:
+class _GetchWindows(object):
 
     def __init__(self):
         import msvcrt
