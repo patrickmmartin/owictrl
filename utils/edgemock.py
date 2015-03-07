@@ -2,8 +2,7 @@
 
 """ mock class for the edge arm """
 
-import sys
-import time
+from logutil import logger
 
 motor_map_bits = {
     'a': [0, 1, 0],  # Rotate Base Anticlockwise

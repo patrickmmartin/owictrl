@@ -2,7 +2,6 @@
 
 """ test cases for the mini language """
 
-import os
 import unittest
 import edgelang
 
@@ -20,7 +19,7 @@ class EdgeLangBaseTestCase(unittest.TestCase):
 class EdgeLangParseTestCase(EdgeLangBaseTestCase):
 
     def runTest(self):
-        instructions = edgelang.to_ll("M1+,M2-,D1.0")
+        edgelang.to_ll("M1+,M2-,D1.0")
 
 """ test for format of returned dict """
 

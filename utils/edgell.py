@@ -2,7 +2,6 @@
 
 """ arm edge low level language """
 
-import sys
 import usb.core
 import usb.util
 import time

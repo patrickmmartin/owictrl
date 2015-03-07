@@ -2,9 +2,7 @@
 
 """ test cases for the mini language arm driver """
 
-import os
 import edgelang            # EdgeLang
-import edgell              # EdgeLL
 import edgehl              # Edge
 
 

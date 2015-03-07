@@ -2,10 +2,7 @@
 
 """ test cases for the mini language arm driver """
 
-import os
 import unittest
-import edgelang            # EdgeLang
-import edgell              # EdgeLL
 import edgehl              # Edge
 
 """ base class with setUp """

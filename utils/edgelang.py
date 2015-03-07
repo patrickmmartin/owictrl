@@ -68,6 +68,3 @@ def to_ll(str):
 
     # split on commas
 
-
-def to_hl(str):
-    raise Error("not implemented")
