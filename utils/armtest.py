@@ -5,6 +5,7 @@
 import os
 import unittest
 from edgell import EdgeRaw
+from logutil import logger
 
 
 class EdgeLLBaseTestCase(unittest.TestCase):
@@ -29,14 +30,14 @@ class EdgeLLConstructTestCase(EdgeLLBaseTestCase):
 class EdgeLLLEDTestCase(EdgeLLBaseTestCase):
 
     def runTest(self):
-        print("blinking light.")
+        logger.info("blinking light.")
         self.arm.output(0.5, [0, 0, 1])
 
 
 class EdgeLLM5TestCase(EdgeLLBaseTestCase):
 
     def runTest(self):
-        print("moving base.")
+        logger.info("moving base.")
         self.arm.output(0.5, [0, 1, 0])
         self.arm.output(0.5, [0, 2, 0])
 

@@ -54,17 +54,17 @@ class EdgeMock:
 
     def __init__(self):
         self.angles = (0, 0, 0)  # degrees
-        print('__init__')
+        logger.info('__init__')
 
     """ stops the arm """
 
     def stop(self):
-        print('stop')
+        logger.info('stop')
 
     """applies output bit set for the duration"""
 
     def output(self, duration, motors):
-        print('moving', motors, 'for ', duration)
+        logger.info('moving', motors, 'for ', duration)
         # time.sleep(duration)
         # update the positions
         unit_vecs = to_unit_vecs(motors)

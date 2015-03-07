@@ -6,6 +6,8 @@ import sys
 import usb.core
 import usb.util
 import time
+from logutil import logger
+
 
 # TODO(PMM) do we want to track the estimated position?
 
@@ -23,12 +25,12 @@ light_bits = {'byte': 2, 'bits': [1]}
 
 
 def to_bytes(instruction):
-    print 'to_bytes', type(instruction), instruction
+    logger.info('to_bytes {0} {1}'.format(type(instruction), instruction))
     motor_bytes = [0, 0, 0]
     M = instruction.get('M', {})
     for motor in M:
         vectors = M[motor]
-        print 'to_bytes', motor, vectors
+        logger.info('to_bytes {0}. {1}'.format(motor, vectors))
         # TODO(PMM) map from motor to bytes
         motor_bits = motor_map_bits[motor]
         byte = motor_bits['byte']
@@ -66,7 +68,7 @@ class EdgeRaw:
     """applies output bit set for the duration"""
 
     def output(self, duration, motor_bytes):
-        print 'output', motor_bytes, 'for ', duration
+        logger.info('output {0} for {1}'.format(motor_bytes, duration))
         # Start the movement
         self._arm.ctrl_transfer(0x40, 6, 0x100, 0, motor_bytes, 1000)
         time.sleep(duration)
@@ -76,13 +78,13 @@ class EdgeRaw:
     """applies output motor set for the duration"""
 
     def drive(self, instruction):
-        print 'drive', instruction
+        logger.info('drive {0}'.format(instruction))
         # Start the movement
         # {1: {'dir': 1}, 2: {'dir': -1}, 'D': 1.0}
         # TODO(PMM) map the motor bytes to the output bytes
         motor_bytes = to_bytes(instruction)
         duration = instruction.get('D', 0)
-        print 'drive', motor_bytes, duration
+        logger.info('drive {0} for {1}'.format(motor_bytes, duration))
         self.output(duration, motor_bytes)
         # Stop the movement after waiting specified duration
         self.stop()

@@ -4,15 +4,17 @@
 
 import sys
 
-print('startup')
+from logutil import logger
+
+logger.info('startup')
 
 import usb.core
 import usb.util
 import time
-print('seeking arm')
+logger.info('seeking arm')
 
 RoboArm = usb.core.find(idVendor=0x1267, idProduct=0x0000)
-print('find complete')
+logger.info('find complete')
 
 # Check if the arm is detected and warn if not
 if RoboArm is None:
@@ -20,5 +22,5 @@ if RoboArm is None:
 
 ArmCmd = [0, 0, 0]
 
-print('stopping')
+logger.info('stopping')
 RoboArm.ctrl_transfer(0x40, 6, 0x100, 0, ArmCmd, 1000)

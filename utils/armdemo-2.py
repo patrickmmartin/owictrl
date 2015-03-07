@@ -4,19 +4,21 @@
 
 import sys
 
-print('startup')
+from logutil import logger
+
+logger.info('startup')
 
 # import the USB and Time libraries into Python
 import usb.core
 import usb.util
 import time
 
-print('seeking arm')
+logger.info('seeking arm')
 
 # Allocate the name 'RoboArm' to the USB device
 RoboArm = usb.core.find(idVendor=0x1267, idProduct=0x0000)
 
-print('find complete')
+logger.info('find complete')
 
 # Check if the arm is detected and warn if not
 if RoboArm is None:
@@ -33,7 +35,7 @@ def MoveArm(Duration, ArmCmd):
     ArmCmd = [0, 0, 0]
     RoboArm.ctrl_transfer(0x40, 6, 0x100, 0, ArmCmd, 1000)
 
-print('complete: reversing')
+logger.info('complete: reversing')
 
 MoveArm(0.5, [0, 2, 0])  # Rotate Base Clockwise
 MoveArm(0.25, [128, 0, 0])  # Shoulder Down

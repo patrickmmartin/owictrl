@@ -1,5 +1,7 @@
 # the real device
 
+from logutil import logger
+
 """ high level """
 
 # the language
@@ -60,16 +62,16 @@ class Edge:
 
     def move(self):
         # move while actions remain and not paused
-        print 'move', "starting"
+        logger.info('move starting')
         while (not self._paused and (self._moveIndex < len(self._moves))):
             move = self._moves[self._moveIndex]
             instructions = edgelang.to_ll(move)
-            print 'move', move, instructions
+            logger.info('move {0} {1}'.format(move, instructions))
             for instruction in instructions:
-                print 'move', instruction
+                logger.info('move {0}'.format(instruction))
                 self._arm.drive(instruction)
             self._moveIndex += 1
-        print("finished")
+            logger.info("finished")
         self.stop()
 
     """ pause the moves  """
