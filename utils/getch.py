@@ -3,6 +3,7 @@
 
 """ module to read chars live  """
 
+
 class _Getch(object):
 
     """Gets a single character from standard input.  Does not echo to the
@@ -21,6 +22,7 @@ screen."""
 
 
 class _GetchUnix(object):
+
     """ **nix style implementation """
 
     def __call__(self):
@@ -39,7 +41,9 @@ class _GetchUnix(object):
 
 
 class _GetchWindows(object):
+
     """ windows implementation """
+
     def __init__(self):
         import msvcrt
 

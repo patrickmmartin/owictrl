@@ -2,6 +2,7 @@
 
 """ runnable keyboard arm driver """
 
+
 def key_drive():
     """ drives the arm from keys """
     from getch import GETCH as getch
@@ -20,7 +21,6 @@ def key_drive():
         ']': [1, 0, 0],  # Grab close
         '\'': [0, 0, 1],  # light on
     }
-
 
     def to_bits(char):
         """ returns the bits for a char """
