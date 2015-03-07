@@ -5,67 +5,71 @@
 import unittest
 import edgelang
 
-""" base class with setUp """
+
 
 
 class EdgeLangBaseTestCase(unittest.TestCase):
-
+    """ base class with setUp """
     def setUp(self):
+        """ set up the base class """
         pass
-
-""" test class with most basic parse test """
 
 
 class EdgeLangParseTestCase(EdgeLangBaseTestCase):
-
+    """ test class with most basic parse test """
     def runTest(self):
+        """ run the test """
         edgelang.to_ll("M1+,M2-,D1.0")
 
-""" test for format of returned dict """
 
 
 class EdgeLangParseTestResultCase(EdgeLangBaseTestCase):
-
+    """ test for format of returned dict """
     def runTest(self):
+        """ run the test """
         instructions = edgelang.to_ll("M1+,M2-,D1.0")
         self.assertEqual(
             instructions[0], {'M': {1: {'dir': 1}, 2: {'dir': -1}}, 'D': 1.0})
 
-""" test for invalid """
+
 
 
 class EdgeLangParseInvalidTestCase(EdgeLangBaseTestCase):
-
+    """ test for invalid """
     @unittest.expectedFailure
     def runTest(self):
-        instructions1 = edgelang.to_ll("A1,B2-,C1")
+        """ run the test """
+        edgelang.to_ll("A1,B2-,C1")
 
-""" test for correct parsing and correct defaults """
+
 
 
 class EdgeLangParseDefaultsTestCase(EdgeLangBaseTestCase):
-
+    """ test for correct parsing and correct defaults """
     def runTest(self):
+        """ run the test """
         instructions1 = edgelang.to_ll("M1+,M2-,D1")
         instructions2 = edgelang.to_ll("M1,M2-,D1")
         self.assertEqual(instructions1[0], instructions2[0])
 
-""" test for whitespace handling """
+
 
 
 class EdgeLangParseWSpaceDefaultsTestCase(EdgeLangBaseTestCase):
-
+    """ test for whitespace handling """
     def runTest(self):
+        """ run the test """
         instructions1 = edgelang.to_ll("M1,M2-,D1")
         instructions2 = edgelang.to_ll(" M1 , M2- , D1 ")
         self.assertEqual(instructions1[0], instructions2[0])
 
-""" test for setting LED """
+
 
 
 class EdgeLangParseLEDTestCase(EdgeLangBaseTestCase):
-
+    """ test for setting LED """
     def runTest(self):
+        """ run the test """
         instructions1 = edgelang.to_ll("L1,D1")
         instructions2 = edgelang.to_ll(" L1 , D1 ")
         self.assertEqual(instructions1[0], instructions2[0])

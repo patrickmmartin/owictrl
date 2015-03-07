@@ -1,6 +1,7 @@
 # from recipe in http://code.activestate.com/recipes/134892-getch-like-unbuffered-character-reading-from-stdin/
 # there is a lot more in there, but I need to get that Mac to check it
 
+""" module to read chars live  """
 
 class _Getch(object):
 
@@ -8,42 +9,44 @@ class _Getch(object):
 screen."""
 
     def __init__(self):
+        """ ctor """
         try:
             self.impl = _GetchWindows()
         except ImportError:
             self.impl = _GetchUnix()
 
-    def __call__(self): return self.impl()
+    def __call__(self):
+        """ returns result from delegate """
+        return self.impl()
 
 
 class _GetchUnix(object):
-
-    def __init__(self):
-        import tty
-        import sys
+    """ **nix style implementation """
 
     def __call__(self):
+        """ invocation of this implementation """
         import sys
         import tty
         import termios
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
+        stdin_h = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(stdin_h)
         try:
-            tty.setraw(sys.stdin.fileno())
-            ch = sys.stdin.read(1)
+            tty.setraw(stdin_h)
+            char = stdin_h.read(1)
         finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
+            termios.tcsetattr(stdin_h, termios.TCSADRAIN, old_settings)
+        return char
 
 
 class _GetchWindows(object):
-
+    """ windows implementation """
     def __init__(self):
         import msvcrt
 
     def __call__(self):
+        """ invocation of this implementation """
         import msvcrt
         return msvcrt.getch()
 
 
-getch = _Getch()
+GETCH = _Getch()
