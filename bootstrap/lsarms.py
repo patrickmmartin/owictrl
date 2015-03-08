@@ -2,6 +2,7 @@
 
 """ test for OWI Edge arm connected """
 
+
 def find_arms():
     """ attempts to locate OWI Edge arms """
 
