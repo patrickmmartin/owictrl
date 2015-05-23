@@ -4,11 +4,10 @@
 
 from logutil import LOGGER_DEFAULT as logger
 
-logger.info('startup')
-
 
 def stop():
     """ stops the arm """
+    logger.info('startup')
     import usb.core
     import usb.util
     logger.info('seeking arm')

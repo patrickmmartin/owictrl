@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+"""
+  class to control the robot arm from the Leap Motion 
+  with proportional control
+"""
+
 import Leap
 import sys
 import thread
@@ -21,12 +26,11 @@ action_bits = {
     'BASE_CL':     [0, 2, 0],  # Rotate Base Clockwise
 }
 
-edge = EdgeRaw()
-
 
 class EdgeListener(Leap.Listener):
 
     def on_init(self, controller):
+        self.edge = EdgeRaw()
         print "Initialized"
 
     def on_connect(self, controller):
@@ -49,14 +53,6 @@ class EdgeListener(Leap.Listener):
             handType = "Left hand" if hand.is_left else "Right hand"
 
             pinch = hand.pinch_strength
-
-            if (pinch < 0.05):
-                edge.output(0.02, action_bits['GRAB_OPEN'])
-
-            if (pinch > 0.9):
-                edge.output(0.02, action_bits['GRAB_CLOSE'])
-
-            # Get the hand's normal vector and direction
             normal = hand.palm_normal
             direction = hand.direction
 
@@ -66,11 +62,9 @@ class EdgeListener(Leap.Listener):
                 normal.roll * Leap.RAD_TO_DEG,
                 direction.yaw * Leap.RAD_TO_DEG)
 
-            if (pitch < -5):
-                edge.output(0.02, action_bits['WRIST_DN'])
+        # TODO(PMM) need to map the positions and orientations to the arm
 
-            if (pitch > 15):
-                edge.output(0.02, action_bits['WRIST_UP'])
+        # TODO(PMM) need to have a class to track the arm's presumed position
 
 
 def main():
