@@ -7,10 +7,14 @@ pep8:
 	autopep8 --in-place utils/*.py
 
 checker:
-	-pychecker utils/*.py
+	- mv utils/Leap.py utils/Leap.pold
+	-pychecker -b Leap utils/*.py
+	- mv utils/Leap.pold utils/Leap.py
 
 lint:
+	- mv utils/Leap.py utils/Leap.pold
 	-pylint utils/*.py
+	- mv utils/Leap.pold utils/Leap.py
 
 checks: checker lint
 

@@ -2,11 +2,11 @@
 
 """ runnable arm quick test """
 
-print 'startup'
-
 
 def armtest():
     """ test arm function  """
+    print 'startup'
+
     # import the USB and Time libraries into Python
     import usb.core
     import usb.util
