@@ -6,8 +6,9 @@
 def key_drive():
     """ drives the arm from keys """
     from getch import GETCH as getch
-    from edgell import EdgeRaw
+    from edgell import EdgeRaw, ACTION_BITS
 
+    # TODO(PMM) need to extract the values from ACTION_BITS to de-dupe
     key_map_bits = {
         'a': [0, 1, 0],  # Rotate Base Anticlockwise
         's': [0, 2, 0],  # Rotate Base Clockwise

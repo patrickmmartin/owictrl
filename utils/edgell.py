@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 
 """ arm edge low level language """
@@ -19,6 +20,20 @@ MOTOR_MAP_BITS = {
 }
 
 LIGHT_BITS = {'byte': 2, 'bits': [1]}
+
+ACTION_BITS = {
+    'GRAB_CLOSE':  [1, 0, 0],  # Grab close
+    'GRAB_OPEN':   [2, 0, 0],  # Grab open
+    'WRIST_UP':    [4, 0, 0],  # Wrist Up
+    'WRIST_DN':    [8, 0, 0],  # Wrist Down
+    'ELBOW_UP':    [16, 0, 0],  # Elbow Up
+    'ELBOW_DN':    [32, 0, 0],  # Elbow Down
+    'SHOULDER_UP': [64, 0, 0],  # Shoulder Up
+    'SHOULDER_DN': [128, 0, 0],  # Shoulder Down
+    'LIGHT_ON':    [0, 0, 1],  # light on
+    'BASE_AC':     [0, 1, 0],  # Rotate Base Anticlockwise
+    'BASE_CL':     [0, 2, 0],  # Rotate Base Clockwise
+}
 
 
 def to_bytes(instruction):
