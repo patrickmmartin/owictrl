@@ -2,17 +2,15 @@
 
 """
   example of simple class with on/off motion controlled via the Leap Motion
-  with a dead zone and movement on the extremes 
+  with a dead zone and movement on the extremes
 """
 
 import Leap
 import sys
-import thread
-import time
 from edgell import EdgeRaw
 
 
-action_bits = {
+ACTION_BITS = {
     'GRAB_CLOSE':  [1, 0, 0],  # Grab close
     'GRAB_OPEN':   [2, 0, 0],  # Grab open
     'WRIST_UP':    [4, 0, 0],  # Wrist Up
@@ -29,55 +27,60 @@ action_bits = {
 
 class EdgeListener(Leap.Listener):
 
-    def on_init(self, controller):
+    """
+    Simple listener to provide on/off control for Edge from Leap Motion
+    """
+
+    def __init__(self):
+        """
+        constructor initialised Edge member
+        """
         self.edge = EdgeRaw()
-        print "Initialized"
-
-    def on_connect(self, controller):
-        print "Connected"
-
-    def on_disconnect(self, controller):
-        # Note: not dispatched when running in a debugger.
-        print "Disconnected"
-
-    def on_exit(self, controller):
-        print "Exited"
+        Leap.Listener.__init__(self)
 
     def on_frame(self, controller):
+        """
+        handles frame callback from Leap
+        """
         # Get the most recent frame and report some basic information
         frame = controller.frame()
 
         # Get hands
         for hand in frame.hands:
             #
-            handType = "Left hand" if hand.is_left else "Right hand"
+            #handType = "Left hand" if hand.is_left else "Right hand"
 
             pinch = hand.pinch_strength
 
-            if (pinch < 0.05):
-                self.edge.output(0.02, action_bits['GRAB_OPEN'])
+            if pinch < 0.05:
+                self.edge.output(0.02, ACTION_BITS['GRAB_OPEN'])
 
-            if (pinch > 0.9):
-                self.edge.output(0.02, action_bits['GRAB_CLOSE'])
+            if pinch > 0.9:
+                self.edge.output(0.02, ACTION_BITS['GRAB_CLOSE'])
 
             # Get the hand's normal vector and direction
-            normal = hand.palm_normal
             direction = hand.direction
 
             # Calculate the hand's pitch, roll, and yaw angles
-            (pitch, roll, yaw) = (
-                direction.pitch * Leap.RAD_TO_DEG,
-                normal.roll * Leap.RAD_TO_DEG,
-                direction.yaw * Leap.RAD_TO_DEG)
+            (pitch) = (
+                direction.pitch * Leap.RAD_TO_DEG)
 
-            if (pitch < -5):
-                self.edge.output(0.02, action_bits['WRIST_DN'])
+#            normal = hand.palm_normal
+#            (roll, yaw) = (
+#                normal.roll * Leap.RAD_TO_DEG,
+#                direction.yaw * Leap.RAD_TO_DEG)
 
-            if (pitch > 15):
-                self.edge.output(0.02, action_bits['WRIST_UP'])
+            if pitch < -5:
+                self.edge.output(0.02, ACTION_BITS['WRIST_DN'])
+
+            if pitch > 15:
+                self.edge.output(0.02, ACTION_BITS['WRIST_UP'])
 
 
 def main():
+    """
+    entry point for the application - things happen afte the listener is added in
+    """
     # Create a listener and controller
     listener = EdgeListener()
     controller = Leap.Controller()

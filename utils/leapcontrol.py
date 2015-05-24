@@ -1,18 +1,16 @@
 #!/usr/bin/python
 
 """
-  class to control the robot arm from the Leap Motion 
+  class to control the robot arm from the Leap Motion
   with proportional control
 """
 
 import Leap
 import sys
-import thread
-import time
 from edgell import EdgeRaw
 
 
-action_bits = {
+ACTION_BITS = {
     'GRAB_CLOSE':  [1, 0, 0],  # Grab close
     'GRAB_OPEN':   [2, 0, 0],  # Grab open
     'WRIST_UP':    [4, 0, 0],  # Wrist Up
@@ -29,38 +27,39 @@ action_bits = {
 
 class EdgeListener(Leap.Listener):
 
-    def on_init(self, controller):
+    """
+    listener for Leap events to control arm
+    """
+
+    def __init__(self):
+        """
+        construct the class and initialise the Edge arm instance
+        """
         self.edge = EdgeRaw()
-        print "Initialized"
-
-    def on_connect(self, controller):
-        print "Connected"
-
-    def on_disconnect(self, controller):
-        # Note: not dispatched when running in a debugger.
-        print "Disconnected"
-
-    def on_exit(self, controller):
-        print "Exited"
+        Leap.Listener.__init__(self)
 
     def on_frame(self, controller):
+        """
+        frame callback from Leap - handle the frame data
+        """
         # Get the most recent frame and report some basic information
         frame = controller.frame()
 
         # Get hands
         for hand in frame.hands:
+            pass
             #
-            handType = "Left hand" if hand.is_left else "Right hand"
+            #handType = "Left hand" if hand.is_left else "Right hand"
 
-            pinch = hand.pinch_strength
-            normal = hand.palm_normal
-            direction = hand.direction
+#            pinch = hand.pinch_strength
+#            normal = hand.palm_normal
+#            direction = hand.direction
 
             # Calculate the hand's pitch, roll, and yaw angles
-            (pitch, roll, yaw) = (
-                direction.pitch * Leap.RAD_TO_DEG,
-                normal.roll * Leap.RAD_TO_DEG,
-                direction.yaw * Leap.RAD_TO_DEG)
+#            (pitch, roll, yaw) = (
+#                direction.pitch * Leap.RAD_TO_DEG,
+#                normal.roll * Leap.RAD_TO_DEG,
+#                direction.yaw * Leap.RAD_TO_DEG)
 
         # TODO(PMM) need to map the positions and orientations to the arm
 
@@ -68,6 +67,9 @@ class EdgeListener(Leap.Listener):
 
 
 def main():
+    """
+    creates a listener which handles the frames dispatched to it
+    """
     # Create a listener and controller
     listener = EdgeListener()
     controller = Leap.Controller()
