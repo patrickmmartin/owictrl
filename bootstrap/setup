@@ -2,3 +2,6 @@ sudo apt-get install python libusb-1.0
 sudo apt-get install python-pip
 sudo pip install --upgrade pyusb
 sudo pip install --upgrade logger
+cp ~/lib/LeapSDK/lib/x64/LeapPython.so  ../utils
+cp ~/lib/LeapSDK/lib/x64/libLeap.so  ../utils
+cp ~/lib/LeapSDK/lib/Leap.py  ../utils
