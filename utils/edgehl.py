@@ -1,3 +1,4 @@
+
 """ high level device for the Edge  """
 
 from logutil import LOGGER_DEFAULT as logger
@@ -47,9 +48,9 @@ class Edge(object):
         while not self._paused and (self._move_index < len(self._moves)):
             move = self._moves[self._move_index]
             instructions = edgelang.to_ll(move)
-            logger.info('move %s %s', move, instructions)
+#            logger.info('move %s %s', move, instructions)
             for instruction in instructions:
-                logger.info('move %s', instruction)
+ #               logger.info('move %s', instruction)
                 self._arm.drive(instruction)
             self._move_index += 1
             logger.info("finished")
