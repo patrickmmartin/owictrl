@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python
 
 """ test cases for the mini language arm driver """
 

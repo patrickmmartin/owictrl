@@ -44,16 +44,16 @@ class Edge(object):
 
     def move(self):
         """ the main loop for moving the arm """
-        logger.info('move starting')
+        logger.debug('move starting')
         while not self._paused and (self._move_index < len(self._moves)):
             move = self._moves[self._move_index]
             instructions = edgelang.to_ll(move)
-#            logger.info('move %s %s', move, instructions)
+            logger.debug('move %s %s', move, instructions)
             for instruction in instructions:
- #               logger.info('move %s', instruction)
+                logger.debug('move %s', instruction)
                 self._arm.drive(instruction)
             self._move_index += 1
-            logger.info("finished")
+            logger.debug("finished")
         self.stop()
 
     def pause(self):
