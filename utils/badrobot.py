@@ -30,9 +30,10 @@ def drive_lang():
     wait2 =     "D2"
     
                 
-    for str_input in [wait1, wait2]:
+    for str_input in [wait1, commands, wait2]:
         try:
             edgelang.to_ll(str_input)  # tests the inputs
+            print("command string: {0}".format(str_input))
             edge.add_moves(str_input)
             edge.move()
             edge.stop()
