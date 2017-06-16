@@ -1,4 +1,3 @@
-
 #!/usr/bin/python
 
 """ arm edge low level language """
@@ -38,12 +37,12 @@ ACTION_BITS = {
 
 def to_bytes(instruction):
     """ converts to bytes for output """
-    logger.info('to_bytes %s %s', type(instruction), instruction)
+    logger.debug('to_bytes %s %s', type(instruction), instruction)
     motor_bytes = [0, 0, 0]
     motors = instruction.get('M', {})
     for motor in motors:
         vectors = motors[motor]
-        logger.info('to_bytes %s. %s', motor, vectors)
+        logger.debug('to_bytes %s. %s', motor, vectors)
         motor_bits = MOTOR_MAP_BITS[motor]
         byte = motor_bits['byte']
         if vectors['dir'] == -1:
@@ -77,7 +76,7 @@ class EdgeRaw(object):
 
     def output(self, duration, motor_bytes):
         """applies output bit set for the duration"""
-        logger.info('output %s for %s', motor_bytes, duration)
+        logger.debug('output %s for %s', motor_bytes, duration)
         # Start the movement
         self._arm.ctrl_transfer(0x40, 6, 0x100, 0, motor_bytes, 1000)
         time.sleep(duration)
@@ -86,12 +85,12 @@ class EdgeRaw(object):
 
     def drive(self, instruction):
         """applies output motor set for the duration"""
-        logger.info('drive %s', instruction)
+        logger.debug('drive %s', instruction)
         # Start the movement
         # {1: {'dir': 1}, 2: {'dir': -1}, 'D': 1.0}
         motor_bytes = to_bytes(instruction)
         duration = instruction.get('D', 0)
-        logger.info('drive %s for %s', motor_bytes, duration)
+        logger.debug('drive %s for %s', motor_bytes, duration)
         self.output(duration, motor_bytes)
         # Stop the movement after waiting specified duration
         self.stop()

@@ -2,6 +2,9 @@
 
 """ runnable keyboard arm driver """
 
+import logutil
+from logutil import LOGGER_DEFAULT as logger
+logger.setLevel(20)
 
 def key_drive():
     """ drives the arm from keys """

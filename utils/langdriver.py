@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python
 
 """ test cases for the mini language arm driver """
 
@@ -20,7 +20,7 @@ def drive_lang():
                        'M3 \telbow \n' +
                        'M2 \twrist \n' +
                        'M1 \tgrabber \n' +
-                       '\' \tLED on \n' +
+                       'L1 \tLED on \n' +
                        '<Enter> to quit')
 
     example_string = ('example string for grabbing an item: \n' +
