@@ -20,17 +20,23 @@ def drive_lang():
     print '#### arm acquired'
 
 
-    commands =  "M3,M4-,D4.5;" + \
-                "M1,M3,M4-,D0.5;" + \
-                "M5,D5;" + \
-                "M1-,M3-,M4,D0.5;" + \
-                "M3-,M4,D4.5"
+    demos  =  "M3,M4-,D4.5;" + \
+             "M1,M3,M4-,D0.5;" + \
+             "M5,D5;" + \
+             "M1-,M3-,M4,D0.5;" + \
+             "M3-,M4,D4.5"
 
-    wait1 =     "D1"
-    wait2 =     "D2"
-    
+    wait1  =  "D1"
+    wait2  =  "D2"
+
+    unfurl = "M5,M4-,M3,D5;M4-,M3,M2,D2.5;M2,D2"
+    furl   = "M5-,M4,M3-,D5;M4,M3-,M2-,D2;M2-,D2"
+
+
+    # we string together the actions into the "script"
+    script = [unfurl, furl]
                 
-    for str_input in [wait1, commands, wait2]:
+    for str_input in script:
         try:
             edgelang.to_ll(str_input)  # tests the inputs
             print("command string: {0}".format(str_input))
